@@ -1,14 +1,20 @@
 <main class="main">
   <div class="content">
-    <div class="games">
-    @for (item of games; track $index) {
-      <div class="game">
-        {{item.name}}
+    <mat-toolbar class="category-toolbar">
+      <span>Video Game Library</span>
+      <div class="categories">
+        <button mat-button color = "primary"
+          routerLink="/overview"
+          routerLinkActive="active-category">Overview</button>
+        <button mat-button color = "primary"
+          routerLink="/developers"
+          routerLinkActive="active-category">Developers</button>
       </div>
-      <br>
-    }
+    </mat-toolbar>
+    <div class="page-container">
+      <router-outlet></router-outlet>
     </div>
+    
   </div>
 </main>
 
-<router-outlet />

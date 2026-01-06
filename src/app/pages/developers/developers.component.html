@@ -1,0 +1,6 @@
+<div class="grid-component">
+    @for (item of developers_with_Games; track $index) {
+      
+      <developer-component [developerWithGameData]="item" [activeFragmentSignal]="activeFragment"></developer-component>
+    }
+</div>

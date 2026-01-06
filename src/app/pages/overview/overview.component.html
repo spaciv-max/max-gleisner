@@ -1,0 +1,15 @@
+<div class="overview-component">
+  <h1>Statistics</h1>
+  <p class="info">Number games: {{gameAmount}}</p>
+  <p class="info">Number developers: {{developerAmount}}</p>
+
+  <h1>Games</h1>
+
+  <div class="grid-component">
+      @for (item of games; track $index) {
+        
+        <game-component [gameData]="item" [activeFragmentSignal]="activeFragment"></game-component>
+      }
+  </div>
+</div>
+

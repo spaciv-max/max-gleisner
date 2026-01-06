@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+@keyframes highlight-pulse {
+  0% { box-shadow: 0 0 0 0 var(--mat-sys-secondary); }
+  33% { box-shadow: 0 0 20px 5px var(--mat-sys-secondary); }
+  66% { box-shadow: 0 0 20px 5px var(--mat-sys-secondary); }
+  100% { box-shadow: 0 0 5px 5px var(--mat-sys-secondary); }
+}
+
+mat-card.app-highlighted {
+    transform: scale(1.02);
+    box-shadow: 0 0 5px 5px var(--mat-sys-secondary);
+    border: 2px solid var(--mat-sys-on-secondary-container);
+    animation: highlight-pulse 2s;
+}
+
+
+.grid-component {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 24px;
+}
