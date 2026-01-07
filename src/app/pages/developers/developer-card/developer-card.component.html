@@ -1,0 +1,17 @@
+<mat-card [class.app-highlighted]="activeFragmentSignal() === developerData.name" [id]="developerData.name">
+    <mat-card-header>
+        <mat-card-title>{{developerData.name}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <p>{{developerData.age}} {{developerData.age == 1 ? "year" : "years"}} old</p>
+        <p>Languages: {{developerData.knownLanguages.join(", ")}}</p>
+    </mat-card-content>
+    <mat-card-actions >
+        <div class="card-button-list">
+            @for (game of developedGames; track $index) {
+                <button mat-button class="card-button" color = "primary" [routerLink]="'/games'" [fragment]="game.name">{{game.name}}</button>
+            }
+        </div>
+        
+    </mat-card-actions>
+</mat-card>

@@ -1,0 +1,13 @@
+<div class="games-component">
+
+
+  <h1 class="headline" id="headline">Games</h1>
+
+  <div class="cards-grid">
+      @for (item of games; track $index) {
+        
+        <app-game-card [gameData]="item" [activeFragmentSignal]="activeFragment"></app-game-card>
+      }
+  </div>
+</div>
+

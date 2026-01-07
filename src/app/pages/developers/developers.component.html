@@ -1,6 +1,8 @@
-<div class="grid-component">
-    @for (item of developers_with_Games; track $index) {
+<h1 class="headline" id="headline">Developers</h1>
+
+<div class="cards-grid">
+    @for (item of developersIndices; track $index) {
       
-      <developer-component [developerWithGameData]="item" [activeFragmentSignal]="activeFragment"></developer-component>
+      <app-developer-card [developerIndex]="item" [activeFragmentSignal]="activeFragment"></app-developer-card>
     }
 </div>
