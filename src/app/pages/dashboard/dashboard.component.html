@@ -1,6 +1,4 @@
-
-
-<h1 class="headline" id = "headline">Dashboard</h1>
+<h1 class="headline" id="headline">Dashboard</h1>
 <p class="info">Number games: {{gameAmount}}</p>
 <p class="info">Number developers: {{developerAmount}}</p>
 <p class="info">Average amount of developers per game: {{avgDevelopersPerGame}}</p>
@@ -9,8 +7,8 @@
 <div id="developer-graph"></div>
 <p class="info">Most played games:</p>
 <div class="cards-grid">
-    @for (item of mostPlayedNGames; track $index) {
-        
-      <app-game-card [gameData]="item"></app-game-card>
-    }
+  @for (item of mostPlayedNGames; track $index) {
+
+  <app-game-card [gameData]="item"></app-game-card>
+  }
 </div>

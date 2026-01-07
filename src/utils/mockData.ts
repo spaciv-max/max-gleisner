@@ -16,7 +16,7 @@ export type Game = {
 export const mockDevelopers$: Observable<Engineer[]> = of(
   Array.from({ length: 40 }, (_, i) => ({
     name: `Developer ${i + 11}`,
-    age: i %20 + 20,
+    age: i % 20 + 20,
     knownLanguages: [
       ["TypeScript", "JavaScript"],
       ["C++", "Rust"],
@@ -24,7 +24,7 @@ export const mockDevelopers$: Observable<Engineer[]> = of(
       ["C#", "F#"],
       ["Java", "Kotlin"]
     ][i % 5]
-    }
+  }
   ))
 )
 
@@ -95,7 +95,7 @@ export const mockGames$: Observable<Game[]> = of([
     name: `Game ${i + 11}`,
     description: `Example game description number ${i + 11}.`,
     numPlayers: (i % 8) + 1,
-    developers: Array.from({length : Math.floor(Math.random() * 4) + 1}, (_, i) =>Math.floor(Math.random() * 40))
+    developers: Array.from({ length: Math.floor(Math.random() * 4) + 1 }, (_, i) => Math.floor(Math.random() * 40))
   }
   ))
 ])

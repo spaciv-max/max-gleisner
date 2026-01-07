@@ -7,38 +7,38 @@
 }
 
 .category-toolbar {
-    height: 64px;
-    padding-top: 0;
-    padding-bottom: 0;
+  height: 64px;
+  padding-top: 0;
+  padding-bottom: 0;
 
-    flex-shrink: 0;
+  flex-shrink: 0;
 }
 
 .categories {
-    display: flex;
-    gap: 8px;
-    margin-left: 40px;
+  display: flex;
+  gap: 8px;
+  margin-left: 40px;
 
-    align-items: center;
-    height: 100%;
+  align-items: center;
+  height: 100%;
 
-    overflow-x: auto;
-    flex-shrink: 1;
+  overflow-x: auto;
+  flex-shrink: 1;
 }
 
 .categories button {
-    height: 100% !important;
-    border-radius: 0 !important;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: large;
+  height: 100% !important;
+  border-radius: 0 !important;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: large;
 }
 
 .active-category {
-    background: var(--mat-sys-secondary-container);
-    border-top: 2px solid white;
+  background: var(--mat-sys-secondary-container);
+  border-top: 2px solid white;
 }
 
 .content {
@@ -53,5 +53,5 @@
   overflow-y: auto;
   min-height: 0;
 
-  
+
 }

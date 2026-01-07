@@ -20,25 +20,25 @@ export class GamesComponent implements AfterViewInit {
     mockGames$.subscribe(
       (x) => this.games = x
     )
-    this.route.fragment.subscribe(fragment => {this.activeFragment.set(fragment)})
+    this.route.fragment.subscribe(fragment => { this.activeFragment.set(fragment) })
 
 
   }
-    ngAfterViewInit(): void {
-        const fragment = this.activeFragment();
-        if(fragment) {
-          const element = document.getElementById(fragment);
-          if(element){
-              element.scrollIntoView({ behavior: 'instant', block: 'center'});
-          }
-        }
-        else{
-          const element = document.getElementById("headline");
-          if(element){
-              element.scrollIntoView({ behavior: 'instant', block: 'center'});
-          }
-        }
+  ngAfterViewInit(): void {
+    const fragment = this.activeFragment();
+    if (fragment) {
+      const element = document.getElementById(fragment);
+      if (element) {
+        element.scrollIntoView({ behavior: 'instant', block: 'center' });
+      }
     }
+    else {
+      const element = document.getElementById("headline");
+      if (element) {
+        element.scrollIntoView({ behavior: 'instant', block: 'center' });
+      }
+    }
+  }
 
 
 }
