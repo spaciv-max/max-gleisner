@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Signal } from "@angular/core";
+import { Component, ElementRef, Input, OnInit, Signal } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button"
 import { Engineer, Game, mockDevelopers$, mockGames$ } from "@utils/mockData";
@@ -26,9 +26,15 @@ export class DeveloperCardComponent implements OnInit {
     knownLanguages: []
   }
 
+  constructor(private elRef: ElementRef) { }
 
   ngOnInit() {
     mockDevelopers$.subscribe((x) => this.developerData = x[this.developerIndex])
     mockGames$.subscribe((x) => this.developedGames = x.filter(game => game.developers.includes(this.developerIndex)))
+  }
+
+
+  public scrollIntoView() {
+    this.elRef.nativeElement.scrollIntoView({ behavior: 'instant', block: 'center' });
   }
 }

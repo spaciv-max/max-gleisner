@@ -1,10 +1,11 @@
 <div class="subpage-container">
-  <h1 class="headline" id="headline">Developers</h1>
+  <h1 class="headline" #headline id="headline">Developers</h1>
 
   <div class="cards-grid">
     @for (item of developersIndices; track $index) {
 
-    <app-developer-card [developerIndex]="item" [activeFragmentSignal]="activeFragment"></app-developer-card>
+    <app-developer-card [developerIndex]="item" #developerCard
+      [activeFragmentSignal]="activeFragment"></app-developer-card>
     }
   </div>
 </div>

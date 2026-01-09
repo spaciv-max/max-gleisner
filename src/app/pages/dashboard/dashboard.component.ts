@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from "@angular/core"
+import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core"
 import { Game, mockDevelopers$, mockGames$ } from "@utils/mockData"
 import { Router, RouterLink } from "@angular/router"
 import { GameCardComponent } from "../games/game-card/game-card.component"
@@ -37,6 +37,9 @@ interface ForceGraphData {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements AfterViewInit {
+  @ViewChild('headline') headline!: ElementRef;
+  @ViewChild('developerGraph') developerGraph!: ElementRef;
+
   games: Game[] = [];
   mostPlayedNGames: Game[] = [];
   mostPlayedNGamesAmount: number = 3;
@@ -106,7 +109,7 @@ export class DashboardComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const element = document.getElementById("headline");
+    const element = this.headline.nativeElement;
     if (element) {
       element.scrollIntoView({ behavior: 'instant', block: 'center' });
     }
@@ -114,7 +117,7 @@ export class DashboardComponent implements AfterViewInit {
 
     this.createChart();
 
-    const container = document.getElementById("developer-graph");
+    const container = this.developerGraph.nativeElement;
     if (container && container.parentElement) {
       const observer = new ResizeObserver(_ => {
         this.graph.width(window.innerWidth / 2 - 64);
@@ -128,7 +131,7 @@ export class DashboardComponent implements AfterViewInit {
 
     //https://github.com/vasturiano/force-graph/blob/master/example/highlight/index.html
 
-    const graphDiv = document.getElementById("developer-graph")!;
+    const graphDiv = this.developerGraph.nativeElement;
     this.graph = new ForceGraph(graphDiv)
       .backgroundColor('#F5F5FF')
       .height(window.innerHeight / 2)

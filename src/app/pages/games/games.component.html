@@ -1,12 +1,12 @@
 <div class="subpage-container">
 
 
-  <h1 class="headline" id="headline">Games</h1>
+  <h1 class="headline" #headline id="headline">Games</h1>
 
   <div class="cards-grid">
     @for (item of games; track $index) {
 
-    <app-game-card [gameData]="item" [activeFragmentSignal]="activeFragment">
+    <app-game-card [gameData]="item" #gameCard [activeFragmentSignal]="activeFragment">
       <mat-card-title card-title>{{item.name}}</mat-card-title>
     </app-game-card>
     }

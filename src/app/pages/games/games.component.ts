@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, signal } from "@angular/core"
+import { AfterViewInit, Component, ElementRef, QueryList, signal, ViewChild, ViewChildren } from "@angular/core"
 import { Game, mockGames$ } from "@utils/mockData"
 import { ActivatedRoute } from "@angular/router"
 import { GameCardComponent } from "./game-card/game-card.component"
@@ -12,6 +12,9 @@ import { MatCardTitle } from "@angular/material/card";
   templateUrl: './games.component.html'
 })
 export class GamesComponent implements AfterViewInit {
+  @ViewChild('headline') headline!: ElementRef;
+  @ViewChildren('gameCard') gameCards!: QueryList<GameCardComponent>
+
   games: Game[] = []
   activeFragment = signal<string | null>(null);
 
@@ -28,13 +31,13 @@ export class GamesComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     const fragment = this.activeFragment();
     if (fragment) {
-      const element = document.getElementById(fragment);
+      const element = this.gameCards.find(card => card.gameData.name === fragment);
       if (element) {
-        element.scrollIntoView({ behavior: 'instant', block: 'center' });
+        element.scrollIntoView();
       }
     }
     else {
-      const element = document.getElementById("headline");
+      const element = this.headline.nativeElement;
       if (element) {
         element.scrollIntoView({ behavior: 'instant', block: 'center' });
       }

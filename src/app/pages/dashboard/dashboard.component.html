@@ -1,5 +1,5 @@
 <div class="subpage-container">
-  <h1 class="headline" id="headline">Dashboard</h1>
+  <h1 class="headline" #headline id="headline">Dashboard</h1>
   <div class="cards-grid">
     <app-statistic-card title="Number of games:" [value]="gameAmount"></app-statistic-card>
     <app-statistic-card title="Number of developers:" [value]="developerAmount"></app-statistic-card>
@@ -11,7 +11,7 @@
       <mat-card-content>
         <p class="info">Graph with developers as nodes and links if two developers developed the same game:</p>
         <p class="info">Right click to get to the respective card in Games/Developers</p>
-        <div id="developer-graph"></div>
+        <div id="developer-graph" #developerGraph></div>
       </mat-card-content>
     </mat-card>
     <mat-card class="num-players-chart-card">

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, signal } from "@angular/core"
+import { AfterViewInit, Component, ElementRef, QueryList, signal, ViewChild, ViewChildren } from "@angular/core"
 import { mockDevelopers$ } from "@utils/mockData"
 import { ActivatedRoute, } from "@angular/router"
 import { MatToolbarModule } from "@angular/material/toolbar"
@@ -11,6 +11,8 @@ import { DeveloperCardComponent } from "./developer-card/developer-card.componen
   templateUrl: './developers.component.html'
 })
 export class DevelopersComponent implements AfterViewInit {
+  @ViewChild('headline') headline!: ElementRef;
+  @ViewChildren('developerCard') developerCards!: QueryList<DeveloperCardComponent>;
 
   developersIndices: number[] = []
   activeFragment = signal<string | null>(null);
@@ -25,13 +27,13 @@ export class DevelopersComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     const fragment = this.activeFragment();
     if (fragment) {
-      const element = document.getElementById(fragment);
+      const element = this.developerCards.find(card => card.developerData.name === fragment);
       if (element) {
-        element.scrollIntoView({ behavior: 'instant', block: 'center' });
+        element.scrollIntoView();
       }
     }
     else {
-      const element = document.getElementById("headline");
+      const element = this.headline.nativeElement;
       if (element) {
         element.scrollIntoView({ behavior: 'instant', block: 'center' });
       }
