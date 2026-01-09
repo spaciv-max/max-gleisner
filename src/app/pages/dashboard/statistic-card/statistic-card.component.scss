@@ -1,0 +1,14 @@
+mat-card-title.statistic-card-title {
+  font-size: large;
+}
+
+mat-card-content.statistic-card-value {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
+
+  p {
+    font-size: 3rem;
+  }
+}

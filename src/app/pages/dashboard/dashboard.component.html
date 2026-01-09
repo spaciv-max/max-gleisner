@@ -1,16 +1,47 @@
-<h1 class="headline" id="headline">Dashboard</h1>
-<p class="info">Number games: {{gameAmount}}</p>
-<p class="info">Number developers: {{developerAmount}}</p>
-<p class="info">Average amount of developers per game: {{avgDevelopersPerGame}}</p>
-<p class="info">Graph with developers as nodes and links if two developers developed the same game:</p>
-<p class="info">Right click to get to the respective card in Games/Developers</p>
-<div id="developer-graph"></div>
-<p class="info">Most played games:</p>
-<div class="cards-grid">
-  @for (item of mostPlayedNGames; track $index) {
+<div class="subpage-container">
+  <h1 class="headline" id="headline">Dashboard</h1>
+  <div class="cards-grid">
+    <app-statistic-card title="Number of games:" [value]="gameAmount"></app-statistic-card>
+    <app-statistic-card title="Number of developers:" [value]="developerAmount"></app-statistic-card>
+    <app-statistic-card title="Average amount of developers per game:"
+      [value]="avgDevelopersPerGame"></app-statistic-card>
+  </div>
+  <div class="developer-graph-and-num-players-graph">
+    <mat-card>
+      <mat-card-content>
+        <p class="info">Graph with developers as nodes and links if two developers developed the same game:</p>
+        <p class="info">Right click to get to the respective card in Games/Developers</p>
+        <div id="developer-graph"></div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="num-players-chart-card">
 
-  <app-game-card [gameData]="item">
-    <mat-card-title card-title class="mat-card-title-with-link" [routerLink]="'/games'" [fragment]="item.name">{{item.name}}</mat-card-title>
-  </app-game-card>
-  }
+      <mat-card-content>
+        <p class="info">Amount of games that have x players</p>
+        <div class="chart-wrapper">
+
+          <canvas id="playerAmountsChart">
+            {{amountOfPlayerCountsChart}}
+          </canvas>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+
+  </div>
+  <mat-card>
+    <mat-card-content>
+      <p class="info">Most played games:</p>
+      <div class="cards-grid">
+        @for (item of mostPlayedNGames; track $index) {
+
+        <app-game-card [gameData]="item">
+          <mat-card-title card-title class="mat-card-title-with-link" [routerLink]="'/games'"
+            [fragment]="item.name">{{item.name}}</mat-card-title>
+        </app-game-card>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>

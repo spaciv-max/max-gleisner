@@ -1,4 +1,38 @@
 .mat-card-title-with-link:hover {
-    color: var(--mat-sys-on-primary-container);
-    cursor: pointer;
+  color: var(--mat-sys-on-primary-container);
+  cursor: pointer;
+}
+
+.statistics-category {
+  margin: 1rem;
+}
+
+.developer-graph-and-num-players-graph {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: stretch;
+
+}
+
+.num-players-chart-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  mat-card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+  }
+
+  .chart-wrapper {
+    flex: 1;
+    width: 100%;
+    position: relative;
+  }
+
+
 }

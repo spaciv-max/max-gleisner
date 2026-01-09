@@ -1,12 +1,16 @@
 import { AfterViewInit, Component } from "@angular/core"
 import { Game, mockDevelopers$, mockGames$ } from "@utils/mockData"
-import { ActivatedRoute, Router, RouterLink } from "@angular/router"
+import { Router, RouterLink } from "@angular/router"
 import { GameCardComponent } from "../games/game-card/game-card.component"
 import { MatToolbarModule } from "@angular/material/toolbar"
 import { MatButtonModule } from "@angular/material/button"
 import ForceGraph, { LinkObject, NodeObject } from "force-graph"
 import { combineLatest } from "rxjs"
-import { MatCardTitle } from "@angular/material/card";
+import { MatCardTitle, MatCard, MatCardContent } from "@angular/material/card";
+import { StatisticCardComponent } from "./statistic-card/statistic-card.component";
+import { Chart, registerables } from "chart.js"
+
+Chart.register(...registerables);
 
 
 interface GraphNode {
@@ -28,7 +32,7 @@ interface ForceGraphData {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [GameCardComponent, MatToolbarModule, MatButtonModule, MatCardTitle, RouterLink],
+  imports: [GameCardComponent, MatToolbarModule, MatButtonModule, MatCardTitle, RouterLink, StatisticCardComponent, MatCard, MatCardContent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
@@ -41,32 +45,42 @@ export class DashboardComponent implements AfterViewInit {
   developerAmount: number = 0;
   avgDevelopersPerGame: number = 0;
 
+
   graph!: ForceGraph;
   graphData: ForceGraphData = { nodes: [], links: [] };
-
 
   highlightNode: (NodeObject | null) = null;
   highlightLink: (LinkObject<NodeObject> | null) = null;
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+
+  amountOfPlayerCounts: number[] = [];
+  amountOfPlayerCountsChart!: Chart;
+
+  constructor(private router: Router) {
     mockGames$.subscribe(
       (x) => {
         this.games = x;
-        this.mostPlayedNGames = [...x].sort((a, b) => b.numPlayers - a.numPlayers).slice(0, this.mostPlayedNGamesAmount);
+        let allPlayedGamesSorted = [...x].sort((a, b) => b.numPlayers - a.numPlayers);
+        this.mostPlayedNGames = allPlayedGamesSorted.slice(0, this.mostPlayedNGamesAmount);
+
+        const highestPlayerCount = allPlayedGamesSorted[0].numPlayers;
+        this.amountOfPlayerCounts = Array(highestPlayerCount + 1).fill(0);
+        x.forEach(game => {
+          this.amountOfPlayerCounts[game.numPlayers]++;
+        });
+
+        this.updateChart()
+
+
+        this.gameAmount = x.length
+
+        this.avgDevelopersPerGame = x.reduce((prev, game) => prev + game.developers.length, 0.0) / x.length
       }
 
     )
 
-    mockGames$.subscribe(
-      (x) => this.gameAmount = x.length
-    )
-
     mockDevelopers$.subscribe(
       (x) => this.developerAmount = x.length
-    )
-
-    mockGames$.subscribe(
-      (x) => this.avgDevelopersPerGame = x.reduce((prev, game) => prev + game.developers.length, 0.0) / x.length
     )
 
 
@@ -90,22 +104,35 @@ export class DashboardComponent implements AfterViewInit {
     })
 
   }
+
   ngAfterViewInit(): void {
     const element = document.getElementById("headline");
     if (element) {
       element.scrollIntoView({ behavior: 'instant', block: 'center' });
     }
     this.createGraph();
+
+    this.createChart();
+
+    const container = document.getElementById("developer-graph");
+    if (container && container.parentElement) {
+      const observer = new ResizeObserver(_ => {
+        this.graph.width(window.innerWidth / 2 - 64);
+      });
+
+      observer.observe(container.parentElement);
+    }
   }
 
   createGraph() {
 
     //https://github.com/vasturiano/force-graph/blob/master/example/highlight/index.html
 
-    this.graph = new ForceGraph(document.getElementById("developer-graph")!)
+    const graphDiv = document.getElementById("developer-graph")!;
+    this.graph = new ForceGraph(graphDiv)
       .backgroundColor('#F5F5FF')
       .height(window.innerHeight / 2)
-      .width(window.innerWidth / 2)
+      .width(window.innerWidth / 2 - 64)
       .graphData(this.graphData)
       .nodeId("id")
       .nodeAutoColorBy("group")
@@ -163,5 +190,41 @@ export class DashboardComponent implements AfterViewInit {
     if (this.graph) {
       this.graph.graphData(this.graphData)
     }
+  }
+
+
+  createChart() {
+    this.amountOfPlayerCountsChart = new Chart("playerAmountsChart", {
+      type: 'bar',
+      data: {
+        labels: [],
+        datasets: [
+          {
+            label: "Amount of Games",
+            data: [],
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    });
+    if (this.amountOfPlayerCounts.length > 0) {
+      this.updateChart()
+    }
+
+
+  }
+
+  updateChart() {
+    if (this.amountOfPlayerCountsChart) {
+      this.amountOfPlayerCountsChart.data.labels = Array.from({ length: this.amountOfPlayerCounts.length }, (_, i) => i)
+      this.amountOfPlayerCountsChart.data.datasets[0].data = this.amountOfPlayerCounts
+
+      this.amountOfPlayerCountsChart.update()
+    }
+
   }
 }
