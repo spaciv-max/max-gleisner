@@ -1,11 +1,12 @@
 import { AfterViewInit, Component } from "@angular/core"
 import { Game, mockDevelopers$, mockGames$ } from "@utils/mockData"
-import { ActivatedRoute, Router } from "@angular/router"
+import { ActivatedRoute, Router, RouterLink } from "@angular/router"
 import { GameCardComponent } from "../games/game-card/game-card.component"
 import { MatToolbarModule } from "@angular/material/toolbar"
 import { MatButtonModule } from "@angular/material/button"
 import ForceGraph, { LinkObject, NodeObject } from "force-graph"
 import { combineLatest } from "rxjs"
+import { MatCardTitle } from "@angular/material/card";
 
 
 interface GraphNode {
@@ -27,8 +28,9 @@ interface ForceGraphData {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [GameCardComponent, MatToolbarModule, MatButtonModule],
-  templateUrl: './dashboard.component.html'
+  imports: [GameCardComponent, MatToolbarModule, MatButtonModule, MatCardTitle, RouterLink],
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements AfterViewInit {
   games: Game[] = [];

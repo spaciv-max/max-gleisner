@@ -6,7 +6,9 @@
   <div class="cards-grid">
     @for (item of games; track $index) {
 
-    <app-game-card [gameData]="item" [activeFragmentSignal]="activeFragment"></app-game-card>
+    <app-game-card [gameData]="item" [activeFragmentSignal]="activeFragment">
+      <mat-card-title card-title>{{item.name}}</mat-card-title>
+    </app-game-card>
     }
   </div>
 </div>

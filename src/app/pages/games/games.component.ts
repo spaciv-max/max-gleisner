@@ -4,10 +4,11 @@ import { ActivatedRoute } from "@angular/router"
 import { GameCardComponent } from "./game-card/game-card.component"
 import { MatToolbarModule } from "@angular/material/toolbar"
 import { MatButtonModule } from "@angular/material/button"
+import { MatCardTitle } from "@angular/material/card";
 
 @Component({
   selector: 'app-games',
-  imports: [GameCardComponent, MatToolbarModule, MatButtonModule],
+  imports: [GameCardComponent, MatToolbarModule, MatButtonModule, MatCardTitle],
   templateUrl: './games.component.html'
 })
 export class GamesComponent implements AfterViewInit {

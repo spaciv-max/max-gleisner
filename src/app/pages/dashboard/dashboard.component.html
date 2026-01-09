@@ -9,6 +9,8 @@
 <div class="cards-grid">
   @for (item of mostPlayedNGames; track $index) {
 
-  <app-game-card [gameData]="item"></app-game-card>
+  <app-game-card [gameData]="item">
+    <mat-card-title card-title class="mat-card-title-with-link" [routerLink]="'/games'" [fragment]="item.name">{{item.name}}</mat-card-title>
+  </app-game-card>
   }
 </div>

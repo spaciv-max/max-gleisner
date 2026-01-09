@@ -1,6 +1,6 @@
 <mat-card [class.app-highlighted]="activeFragmentSignal() === gameData.name" [id]="gameData.name">
   <mat-card-header>
-    <mat-card-title>{{gameData.name}}</mat-card-title>
+    <ng-content select="[card-title]"></ng-content>
   </mat-card-header>
   <mat-card-content>
     <p>{{gameData.description}}</p>
